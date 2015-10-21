@@ -36,21 +36,19 @@ $(document).ready(function() {
 
   function startGame() { //Can this be placed above?
     var userGuess = parseInt($("#userGuess").val()); 
-    count++;
-    $("span#count").text(count);
     console.log("Your guess is " + userGuess + ".");
     console.log("The random number is " + answer + ".")
 
-    if (isNaN(userGuess)) { // if input is a string, alert user to provide a number.
-        alert("Please use the number keys.");
+    if (isNaN(userGuess) || userGuess === 0 || userGuess > 100) { // if input is a string, alert user to provide a number.
+        alert("Please use the number keys to choose a number between 1 and 100");
         return false;
-    }
+        $("span#count").text(userGuess);
 
-    else if (userGuess === 0 || userGuess > 100) { // Can't choose number below 0 or over 100
-      alert("Please choose a number between 1 and 100"); // Does this need a return?
     }
 
     else {
+      count++;
+      $("span#count").text(count);
       $("#userGuess").val("");
       guessList.push(userGuess); //pushes guess to empty guessList array
       $("ul#guessList").append('<li>' + userGuess + '</li>'); //appends guess to <ul>
@@ -102,6 +100,7 @@ $(document).ready(function() {
   	});
 });
 
+  
     /// My old code
 
        /*$("form").submit(function(event) { // click "guess" and generate random number
