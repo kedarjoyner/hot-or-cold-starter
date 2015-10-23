@@ -39,11 +39,10 @@ $(document).ready(function() {
     console.log("Your guess is " + userGuess + ".");
     console.log("The random number is " + answer + ".")
 
-    if (isNaN(userGuess) || userGuess === 0 || userGuess > 100) { // if input is a string, alert user to provide a number.
+    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100 || userGuess === 0) { // if input is a string, alert user to provide a number.
         alert("Please use the number keys to choose a number between 1 and 100");
+        $("#userGuess").val("");
         return false;
-        $("span#count").text(userGuess);
-
     }
 
     else {
@@ -58,6 +57,7 @@ $(document).ready(function() {
 
           if (difference === 0) {
                $("h2#feedback").text("You're Right!");
+               endGame();
             }       
           else if (difference < 5) {
                 $("h2#feedback").text("You're very hot!");      
@@ -72,6 +72,18 @@ $(document).ready(function() {
                 $("h2#feedback").text("You're ice cold!");   
             }  
     }
+  }
+
+  function endGame() {
+      alert("You guessed it right! You're a champ. We'll reset the game for you!");
+     $("h2#feedback").text("Make your Guess!");
+      answer = randomNumber();
+      //console.log(answer);
+      $("ul#guessList").empty();
+      randomNumber();
+      count = 0;
+      $("span#count").text(0);
+      guessList = [];  
   }
 
   function newGame() {
